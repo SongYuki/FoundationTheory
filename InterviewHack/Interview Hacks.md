@@ -61,3 +61,106 @@ Q:如何反向打印一个链表（从尾到头）
     }
 ```
 
+Q:如何反转一个字符串(string)(要求复杂度为O(N/2))
+A:以字符串数组为例，将第一与倒数第一置换，第二与倒数第二置换，一直到自己（subscript=脚注，下标）与自己相等则停止置换
+
+
+Q：如何翻转双向链表（双向链表翻转意义何在呢）
+A：直接用循环，期间只需要做两件事情，头尾置换，向前指针和向后指针的互换
+
+```C
+Node *PCurrent = pHead,*pTemp;
+while(pCurrent){
+    pTemp=pCurrent->next;
+    pCurrent->next=pCurrent->prev;
+    pCurrent->prev=pTemp;
+    pHead=pCurrent;
+    pCurrent=pTemp;
+}
+//pHead will point to the newly reversed head by now.
+//-END-
+```
+
+Q：在一个升序排列的双向链表中，如何插入一个节点
+A：考察的是对边界条件的检查，这是一个优秀的程序员必备的能力。先想象一下可能在哪些地方插入一个节点：头部，中间，尾部。
+```C
+//assume we have a struct
+Struct Node{
+    Int data;
+    Node *prev;
+    Node *next;
+};
+
+//pHead,pCur,nn(new node),ppCur(pre-pCur)
+if(pHead==NULL)return(0);
+pCur=pHead;
+while(pCur){
+    if(pCur!=pHead){
+        ppCur=pCur->prev;//keep track of prev node.
+    }
+    if(pCur->data >= nn->data){
+        if(pCur==pHead){
+            //insert at the head
+            pHead = nn;
+            nn->prev = NULL;
+            nn->next = pCur;
+            pCur->prev = nn;
+        }else{//insert at non head.
+            if(pCur->next==NULL){//insert at the tail.
+                nn->next=NULL;
+                pCur->next=nn;
+                nn->prev=pCur;
+            }else{//insert somewhere in the middle.
+                nn->next = pCur;
+                pCur->prev=nn;
+                ppCur->next=nn;
+                nn->prev=ppCur;
+            }
+            return(pHead);//return head of double-linklist.
+        }
+    }else{//keep going!
+        pCur=pCur->next;
+    }
+}//end of while()
+```
+
+
+Q：在双向链表中，如何删除一个节点
+A：Need to consider all boundary conditions
+```C
+void del(node *n){
+    if(!n)return;
+    if(n->prev){//Treat one direction
+        n->prev->next=n->next;
+    }else{
+        n->next->prev=NULL;//head deletion
+        head = n->next;//reassign list head
+    }
+    
+    if(n->next){//Treat the other direction
+        n->next->prev=n->prev;
+    }else{
+        n->prev->next=NULL;//delete at tail
+    }
+    delete(n);
+}//END of del()
+```
+
+Q：在单链表中如何发现loop（环）
+A：发现是否有环的基本算法就是从表头出发，两个指针在循环中以不同的步幅前进，其中p1步幅为1，p2步幅为2，如果在某次迭代中指向同一点，则说明出现环loop.
+```C
+Node *p1,*p2,*head;
+p1=p2=head;
+do{
+    p1=p1->next;
+    p2=p2->next->next;
+}while(p1!=p2&&p1->next!=NULL&&p2->next!=NULL&&p2->next->next!=NULL)
+    
+if(p1->next==NULL||p2->next==NULL||p2->next->next==NULL){
+    printf("None loop found!\n");
+}else if(p1==p2&&p1!=NULL){
+    printf("Loop found!\n");
+}//-END-
+//
+```
+
