@@ -3,7 +3,7 @@
 标签（空格分隔）： Bit&Byte
 
 ---
-
+chapter 1 data structure
 Q：将整数的某一位置一(set bit)或清零(clear bit)
 A：这道题的解决方案分两部分：
  1. 先定义一个宏（macro），这个宏就实现一个功能：返回二进制整数，把第n位设为1（其他位为0）.
