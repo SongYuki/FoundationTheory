@@ -1,13 +1,13 @@
 ﻿# Interview Hacks
 
-标签（空格分隔）： Array
-
 ---
 
-chapter 1 data structure
 1.2 数组
+
 Q：如何在一个排好序的数组中打印出唯一的unique数组元素
+
 A：对于已经排好序的数组，打印unique的数组元素无非就是比较相邻的两个元素
+
 ```C
 //assume it's a char * array
 char * unique_array(char *s,int size)
@@ -26,7 +26,9 @@ char * unique_array(char *s,int size)
 ```
 
 Q：如何在一个字符串数组中(char* array)滤掉所有匹配的字符
+
 A：在一个数组中找到匹配的字符，只需要循环一次而已
+
 ```C
 //filter_array()
 //s为字符串数组，size标识了数组的长度，待匹配字符为tgt
@@ -48,7 +50,9 @@ char * filter_array(char *s,int size,char tgt)
 ```
 
 Q：给你一个二维数组，如何以螺旋的方式打印出数组内容
+
 A：边界效应（垂直转弯处）
+
 ```C
     void print_spiral(int** arr,int size)
     {
@@ -71,7 +75,9 @@ A：边界效应（垂直转弯处）
 ```
 
 Q：如何给一个二维数组分配内存
+
 A：这是一个关于二维数组内存申请的问题
+
 ```C
     //使用calloc()，假设有二维数组，尺寸为height*width
     //allocate height number of pointers to each row
